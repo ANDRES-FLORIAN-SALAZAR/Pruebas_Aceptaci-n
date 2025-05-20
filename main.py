@@ -23,7 +23,7 @@ def datos_texto_formulario(driver):
             "lastName": "Florian",
             "userEmail": "duvanfloriansalazar@gmail.com",
             "userNumber": "3001234567",
-            "SubjectsInput": "Matematicas",
+            "subjectsInput": "Math",
             "currentAddress": "Calle 123 # 45 - 67",
 }
     
@@ -35,6 +35,7 @@ def datos_texto_formulario(driver):
 def seleccionar_genero(driver):
     driver.find_element(By.XPATH, "//label[text()='Male']").click()
     time.sleep(0.5)
+
 
 def seleccionar_hobbies(driver):
     driver.find_element(By.XPATH, "//label[text()='Sports']").click()
@@ -74,7 +75,6 @@ def main():
     driver.save_screenshot("Antes_de_enviar.png")
     driver.find_element(By.ID, "submit").submit()
     driver.save_screenshot("despues_de_enviar.png")
-    
 
     time.sleep(2)
     driver.quit()
