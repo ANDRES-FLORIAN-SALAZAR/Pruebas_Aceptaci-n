@@ -5,29 +5,6 @@ import time
 driver=webdriver.Chrome()
 driver.get("https://demoqa.com/automation-practice-form")
 
-# Casillas de formulario
-
-# nombre = driver.find_element(By.ID, "firstName")
-# nombre.send_keys("duvan")
-
-# nombre = driver.find_element(By.ID, "lastName")
-# nombre.send_keys("Florian")
-
-# email = driver.find_element(By.ID, "userEmail")
-# email.send_keys("duvanfloriansalazar@gmail.com")
-
-# mobile = driver.find_element(By.ID, "userNumber")
-# mobile.send_keys("3001234567")
-
-# subjects = driver.find_element(By.ID, "subjectsInput")
-# subjects.send_keys("Matematicas")
-
-# currentAddress = driver.find_element(By.ID, "currentAddress")
-# currentAddress.send_keys("Calle 123 # 45 - 67")
-
-# sudmit = driver.find_element(By.ID, "submit")
-# sudmit.submit()
-
 def get_driver():
     
     options = webdriver.ChromeOptions()
@@ -46,22 +23,58 @@ def datos_texto_formulario(driver):
             "lastName": "Florian",
             "userEmail": "duvanfloriansalazar@gmail.com",
             "userNumber": "3001234567",
-            "subjectsInput": "Matematicas",
+            "SubjectsInput": "Matematicas",
             "currentAddress": "Calle 123 # 45 - 67",
-            "submit": "submit"
 }
     
     for id_pag in datos:
         texto: str = datos[id_pag]
         driver.find_element(By.ID, id_pag).send_keys(texto)
         time.sleep(3)
-        
+
+def seleccionar_genero(driver):
+    driver.find_element(By.XPATH, "//label[text()='Male']").click()
+    time.sleep(0.5)
+
+def seleccionar_hobbies(driver):
+    driver.find_element(By.XPATH, "//label[text()='Sports']").click()
+    driver.find_element(By.XPATH, "//label[text()='Music']").click()
+    time.sleep(0.5)
+
+def seleccionar_fecha_nacimiento(driver):
+
+    driver.find_element(By.ID, "dateOfBirthInput").click()
+    time.sleep(0.5)
+
+    driver.find_element(By.CLASS_NAME, "react-datepicker__month-select").send_keys("April")
+
+    driver.find_element(By.CLASS_NAME, "react-datepicker__year-select").send_keys("2000")
+
+    driver.find_element(By.XPATH, "//div[contains(@class, 'react-datepicker__day') and text()='15']").click()
+    time.sleep(0.5)
+
+def seleccionar_estado_y_ciudad(driver):
+
+    driver.find_element(By.ID, "state").click()
+    driver.find_element(By.XPATH, "//div[text()='NCR']").click()
+    time.sleep(0.5)
+
+    driver.find_element(By.ID, "city").click()
+    driver.find_element(By.XPATH, "//div[text()='Colombia']").click()
+    time.sleep(0.5)
+    
 def main():
     driver: webdriver = get_driver()
     datos_texto_formulario(driver)
+    seleccionar_genero(driver)
+    seleccionar_hobbies(driver)
+    seleccionar_fecha_nacimiento(driver)
+    seleccionar_estado_y_ciudad(driver)
+    driver.find_element(By.ID, "dateOfBirthInput").click()
     driver.save_screenshot("Antes_de_enviar.png")
     driver.find_element(By.ID, "submit").submit()
     driver.save_screenshot("despues_de_enviar.png")
+    
 
     time.sleep(2)
     driver.quit()
