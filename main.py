@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 import time
 
 driver=webdriver.Chrome()
@@ -23,7 +25,7 @@ def datos_texto_formulario(driver):
             "lastName": "Florian",
             "userEmail": "duvanfloriansalazar@gmail.com",
             "userNumber": "3001234567",
-            "subjectsInput": "Math",
+            "subjectsInput": "Maths",
             "currentAddress": "Calle 123 # 45 - 67",
 }
     
@@ -42,6 +44,10 @@ def seleccionar_hobbies(driver):
     driver.find_element(By.XPATH, "//label[text()='Music']").click()
     time.sleep(0.5)
 
+def seleccionar_picture(driver):
+    driver.find_element(By.XPATH, "//label[text()='Picture']").click()
+    driver.find_element(By.XPATH, "//label[text()='Select Picture']").click()
+    
 def seleccionar_fecha_nacimiento(driver):
 
     driver.find_element(By.ID, "dateOfBirthInput").click()
@@ -69,6 +75,7 @@ def main():
     datos_texto_formulario(driver)
     seleccionar_genero(driver)
     seleccionar_hobbies(driver)
+    seleccionar_picture(driver)
     seleccionar_fecha_nacimiento(driver)
     seleccionar_estado_y_ciudad(driver)
     driver.find_element(By.ID, "dateOfBirthInput").click()
