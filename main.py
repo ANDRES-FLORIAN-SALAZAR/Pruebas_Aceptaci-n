@@ -20,6 +20,8 @@ def datos_texto_formulario(driver):
         "lastName": "Florian",
         "userEmail": "duvanfloriansalazar@gmail.com",
         "userNumber": "3001234567",
+        "subjectsInput": "Maths",
+        "uploadPicture": "/home/andres/Descargas/wp2975191.jpg",
         "currentAddress": "Calle 123 # 45 - 67",
     }
 
@@ -44,19 +46,29 @@ def seleccionar_hobbies(driver):
 def seleccionar_fecha_nacimiento(driver):
     driver.find_element(By.ID, "dateOfBirthInput").click()
     time.sleep(0.5)
-    driver.find_element(By.CLASS_NAME, "react-datepicker__month-select").send_keys("April")
-    driver.find_element(By.CLASS_NAME, "react-datepicker__year-select").send_keys("2000")
+    driver.find_element(By.CLASS_NAME, "react-datepicker__month-select").send_keys("November")
+    driver.find_element(By.CLASS_NAME, "react-datepicker__year-select").send_keys("1999")
     driver.find_element(By.XPATH, "//div[contains(@class, 'react-datepicker__day') and text()='15']").click()
     time.sleep(0.5)
+    
+def seleccionar_imagen(driver):
+        driver.find_element(By.ID, "uploadPicture").send_keys("/home/andres/Descargas/wp2975191.jpg")
+        time.sleep(1)
 
 def seleccionar_estado_y_ciudad(driver):
     driver.find_element(By.ID, "state").click()
     driver.find_element(By.XPATH, "//div[text()='NCR']").click()
     time.sleep(0.5)
     driver.find_element(By.ID, "city").click()
-    driver.find_element(By.XPATH, "//div[text()='Delhi']").click()  # Cambiado a una opción válida real
+    driver.find_element(By.XPATH, "//div[text()='Delhi']").click() 
     time.sleep(0.5)
 
+def enviar_formulario(driver):
+    driver.find_element(By.ID, "submit").click()
+    time.sleep(2)
+    driver.save_screenshot("despues_de_enviar.png")
+    
+    
 def main():
     driver = get_driver()
     datos_texto_formulario(driver)
@@ -64,9 +76,10 @@ def main():
     seleccionar_hobbies(driver)
     seleccionar_fecha_nacimiento(driver)
     seleccionar_estado_y_ciudad(driver)
+    seleccionar_imagen(driver)
+    driver.find_element(By.ID, "enviar").click()
     driver.save_screenshot("antes_de_enviar.png")
-    driver.find_element(By.ID, "submit").click()
-    time.sleep(2)
+    enviar_formulario(driver)
     driver.save_screenshot("despues_de_enviar.png")
     driver.quit()
 
